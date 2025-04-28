@@ -13,7 +13,6 @@
     <?php
         include('header.php');
     ?>
-   
     <main>
     <aside>
         Расширенный поиск
@@ -28,28 +27,34 @@
             <input type="checkbox"> <br>
         </form>
     </aside> 
-        <div class="products">
-            <div class="product">
-                <h2 class="product_name">Product</h2>
-                <div class="product_image"><img src="image.png" alt=""></div>
-                <div class="product_cost">50$</div>
-            </div>
-            <div class="product">
-                <h2 class="product_name">Product</h2>
-                <div class="product_image"><img src="image.png" alt=""></div>
-                <div class="product_cost">50$</div>
-            </div>
-            <div class="product">
-                <h2 class="product_name">Product</h2>
-                <div class="product_image"><img src="image.png" alt=""></div>
-                <div class="product_cost">50$</div>
-            </div>
-            <div class="product">
-                <h2 class="product_name">Product</h2>
-                <div class="product_image"><img src="image.png" alt=""></div>
-                <div class="product_cost">50$</div>
-            </div>
-        </div>
+    <?php
+        include('lib/lib_db.php');
+        if (isset($_POST['name'])) { 
+            $products_query = getQueryProducts($_POST['name']);
+            //print_r( $products_query);
+            //print_r( 'Форма работает');
+        } else {
+            print_r( 'Ничего не найдено');
+        }
+        $images=array();
+        for($i=0; $i<sizeof($products_query); $i++){
+            $images[$i] = getQueryPics($products_query[$i]['picture']);
+        }
+        //print_r(value: $images);
+
+        printf('<div class="products">');
+        for($i=0; $i<sizeof($products_query); $i++){
+            printf('<div class="product">
+                            <h2 class="product_name">%s</h2>
+                            <div class="product_image"><img src="%s" alt=""></div>
+                            <div class="product_cost">%s$</div>
+            </div>', $products_query[$i]['name'], 
+            $images[$i][0]['image'],
+            $products_query[$i]['cost']);
+        }
+        printf('</div>');
+  
+    ?>
         
     </main>
     <?php

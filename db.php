@@ -14,11 +14,6 @@
 
         // указатель на соединение
         $dbh = new PDO($dsn, $user, $pass, $opt);
-        
-        //$query = $dbh->query('SELECT * FROM news');
-        //$query->execute();
-        //$data = $query->fetchAll();
-       // print_r($data) ;
 
     }
     catch(PDOException $e){

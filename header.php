@@ -1,7 +1,7 @@
 <div class='background'>
     Store
 </div>
-        <form class="form" action="">
-            <input type="text">
-            <button> ok</button>
-        </form>
+<form class="form" method="post" >
+    <input type="text" name="name">
+    <button  type="submit" name="submitQuery">  </button>
+</form>
