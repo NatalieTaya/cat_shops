@@ -1,0 +1,28 @@
+.background{
+    margin: 0;
+    height: 400px;
+    background-image: url('chad_9809faf37fc54322b85f654b1f336ae9.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 40px 0 0 800px;
+    font: 900 60px sans-serif;
+}
+.form {
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.form input {
+    width: 95%;
+    height: 50px;
+    border: none;
+    background-color: bisque;
+}
+.form button {
+    width: 5%;
+    background-color: bisque;
+    border-color: burlywood;
+
+}

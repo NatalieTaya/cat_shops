@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+}
+main {
+    margin: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.products {
+    width: 79%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+.product {
+    width: 25% ;
+    margin: 25px;
+    border: bisque 1px solid;
+}
+.product_name {
+    text-align: center;
+    padding: 5px;
+    color: peru;
+    font: 500 20px sans-serif;
+
+}
+.product_image img {
+    display: block;
+    height: 300px;
+    margin: auto;
+}
+.product_image {
+    height: 300px;
+}
+.product_cost {
+    text-align: center;
+    padding: 5px;
+    color: peru;
+    font: 500 20px sans-serif;
+}
+
+
+
+aside {
+    width: 20%;
+    color: peru;
+    font: 500 20px sans-serif;
+}
