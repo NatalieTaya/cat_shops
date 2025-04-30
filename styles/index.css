@@ -4,7 +4,7 @@
 main {
     margin: 30px;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
 }
 .products {
@@ -16,7 +16,7 @@ main {
 
 }
 .product {
-    width: 25% ;
+    width: 25%-25px ;
     margin: 25px;
     border: bisque 1px solid;
 }
@@ -45,6 +45,8 @@ main {
 
 
 aside {
+    display: flex;
+    flex-direction: column;
     width: 20%;
     color: peru;
     font: 500 20px sans-serif;
