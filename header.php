@@ -5,3 +5,4 @@
     <input type="text" name="name">
     <button  type="submit" name="submitQuery">  </button>
 </form>
+

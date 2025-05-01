@@ -2,8 +2,6 @@
 
 
 function productsHTML($products_query,$images){
-    
-    printf('<div class="products">');
             for($i=0; $i<sizeof($products_query); $i++){
                 printf('<div class="product">
                                 <h2 class="product_name">%s</h2>
@@ -13,6 +11,4 @@ function productsHTML($products_query,$images){
                 $images[$i]['image'],
                 $products_query[$i]['cost']);      
             }
-    printf('</div>');
-
 }

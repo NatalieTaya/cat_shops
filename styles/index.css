@@ -7,7 +7,7 @@ main {
     flex-direction: row-reverse;
     flex-wrap: wrap;
 }
-.products {
+#qproducts {
     width: 79%;
     display: flex;
     flex-direction: row;
@@ -42,12 +42,13 @@ main {
     font: 500 20px sans-serif;
 }
 
-
-
 aside {
     display: flex;
     flex-direction: column;
     width: 20%;
     color: peru;
     font: 500 20px sans-serif;
+}
+aside  h2{
+    padding: 10px;
 }

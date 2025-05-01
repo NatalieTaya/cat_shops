@@ -16,8 +16,7 @@
     <?php
         include('lib/lib_db.php');
         include('lib/lib_outputHTML.php');
-        error_reporting(0);
-        
+        //error_reporting(0);
         $max_cost=0;
         if (isset($_POST['name'])) { 
             $products_query = getQueryProducts($_POST['name']);
@@ -28,7 +27,6 @@
                     $max_cost=$products_query[$i]['cost'];
                 } 
             }
-            productsHTML($products_query,$images);
         } else {
             $products_query = getAllproducts();
             $images=getAllpics();
@@ -38,41 +36,35 @@
                     $max_cost=$products_query[$i]['cost'];
                 } 
             }
-        }        
-        
+        }    ?>
+
+        <div id="qproducts">
+            <?php
+                productsHTML($products_query,$images)
+            ?>
+        </div> 
+        <?php
+
         $costRange=$max_cost;
         printf('
             <aside>
-                Расширенный поиск
+                <h2>Расширенный поиск </h2>
                 <form method="POST">
-                    <label for="">Цена</label>
-                    <input name="cost_range" type="range" min="0" max="%s" step="1">
+                    <label >Цена</label>
+                    <input name="cost_range" id ="cost" type="range" min="0" max="%s" step="1">
                     <button  type="submit"> Искать </button>
-                </form>', $max_cost);
-            
-        if (isset($_POST['cost_range'])) { 
-            // Получаем значение из диапазона
-            $costRange = $_POST['cost_range'] ?? null;
-            if ($costRange !== null) {
-                $i=0;
-                foreach($products_query as $item) {
-                    // поиск максимума стоимости выведенных товаров
-                    if ($item['cost'] < $costRange) {
-                        $products_filtered[$i]=$item;
-                        $images_filtered[$i] = getQueryPics($item['picture'])[0];
-                        $i++;
-                    } 
-                }
-            } 
-        } 
-        printf('
-            <label for="">Цена: %s</label>
-            </aside> ', $costRange);
-            
-            if($products_filtered !== null) {
-                productsHTML($products_filtered,$images_filtered);
-            } 
-    ?>
+                    <div id="label_cost" >%s$</div>
+                </form>
+                 ', $max_cost, $costRange);
+        printf(    '</aside>');
+        ?>
+
+        <script>
+            window.products = <?= json_encode($products_query, JSON_UNESCAPED_UNICODE) ?>;
+        </script>
+        <script src="ajax_aside.js">
+        </script> 
+
     </main>
     <?php
     include('footer.php');

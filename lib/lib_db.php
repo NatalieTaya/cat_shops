@@ -30,4 +30,15 @@ function getQueryPics($image_id){
         $query->bindParam(':image_id',$image_id);
         $query->execute();
         return $data=$query->fetchAll();
-}        
+}    
+
+
+function getCostRangeProducts($max_price)  {  
+        include('db.php');
+        $query = $dbh->prepare('SELECT * FROM product
+                                        WHERE cost <= :max_price');
+        $query->bindParam(':max_price',$max_price);
+        $query->execute();
+        return $data=$query->fetchAll();
+}     
+  
