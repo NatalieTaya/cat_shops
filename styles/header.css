@@ -4,8 +4,9 @@
     background-image: url('chad_9809faf37fc54322b85f654b1f336ae9.png');
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 40px 0 0 800px;
+    padding: 40px 0 0 1300px;
     font: 900 60px sans-serif;
+    color: aliceblue;
 }
 .form {
     display: flex;
