@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/index_modal_window.css">
     <link rel="stylesheet" href="styles/footer.css">
     <title>Document</title>
 </head>
@@ -39,50 +40,85 @@
             }
         }    ?>
         
+        
+
         <div id="qproducts">
             <?php
             // вывод товаров 
-                productsHTML($products_query,$images)
+                productsHTML($products_query,$images);
             ?>
         </div> 
         <?php
+                //Модальное окошко для вывода информации о товаре
+                printf('<div id="product-modal" class="modal">
+                                    <h2 id="modal-product-name"></h2>
+                                    <div class="modal-content">
+                                        <div id="modal-product-image"></div>
+                                        <p id="modal-product-description"></p>
+                                        <div id="modal-product-cost"></div>
+                                        <button id="add-to-cart">Добавить в корзину</button>
+                                        <span class="close" onclick="closeModal()">&times;</span>
+                                    </div>
+                                </div>')
+            ?>
+        <?php
         // боковая колонка с расширенным поиском
-
         // поиск по цене
         $costRange=$max_cost;
         printf('
             <aside>
                 <h2>Расширенный поиск </h2>
                 <form id="form_extended_search" method="POST">
-                    <label >Цена</label>
+                    <label class="label_search">Цена</label>
                     <input name="cost_range" id ="cost" type="range" min="0" max="%s" step="1"> <br>
-                                        <div id="label_cost" >%s$</div><br>
+                                        <div id="label_cost" >до %s$</div><br>
 
-                    <label >Цвет</label><br>', $max_cost, $costRange);
+                    <label class="label_search">Цвет</label><br>', $max_cost, $costRange);
 
         // поиск по цвету товара
-        $colors=array();            
+        $colors_id=array(); 
+        $colors_names=array(); 
         foreach($products_query as $product){
-            array_push($colors, $product['color']);    
+            $color_fromDB = getQueryColor($product['color_id']);
+            array_push($colors_id, $product['color_id']);    
+            array_push($colors_names, $color_fromDB[0]['color_name']);    
+        }          
+        $uniqueColors_id = array_unique($colors_id);
+        $uniqueColors_names = array_unique($colors_names);
+        $result_colors = array_map(function($uniqueColors_id, $uniqueColors_names) {
+            return '<input name="colors"  color_id="'.$uniqueColors_id.'"  type="checkbox" checked>
+                            <label >'.$uniqueColors_names.'</label><br>'  ;
+        }, $uniqueColors_id, $uniqueColors_names);
+        foreach($result_colors as $entry){
+            printf($entry);
         }
-        $uniqueColors = array_unique($colors);
-        foreach($uniqueColors as $color){
-            printf('<input name="colors"     color_id="%s"  type="checkbox" checked>
-                            <label >%s</label><br>',$color,$color);
-        }
-        printf('<label >Категория товара</label><br>');
+        printf('<label class="label_search">Категория товара</label><br>');
+
+
+
         // поиск по категории товара
-        $categories=array();            
+        $categories_id=array(); 
+        $categories_names=array();                       
         foreach($products_query as $product){
-            array_push($categories, $product['category_id']);    
+            $category_fromDB = getQueryCategory($product['category_id']);
+            array_push($categories_id, $product['category_id']);    
+            array_push($categories_names, $category_fromDB[0]['category_name']);    
         }
-        $uniqueCategories = array_unique($categories);
-        foreach($uniqueCategories as $category){
-            printf('<input name="categories"  color_id="%s"  type="checkbox" checked>
-                            <label >%s</label><br>',$category,$category);
+        $uniqueCategories_id = array_unique($categories_id);
+        $uniqueCategories_names = array_unique($categories_names);
+        $result = array_map(function($uniqueCategories_id, $uniqueCategories_names) {
+            return '<input name="categories"  categorie_id="'.$uniqueCategories_id.'"  type="checkbox" checked>
+                            <label >'.$uniqueCategories_names.'</label><br>'  ;
+        }, $uniqueCategories_id, $uniqueCategories_names);
+        foreach($result as $entry){
+            printf($entry);
         }
         printf(    '</form> </aside>');
         ?>
+        
+        <script> 
+        
+        </script> 
 
         <script>
             // передача данных через AJAX
@@ -90,7 +126,8 @@
         </script>
         <script src="ajax_aside.js">
         </script> 
-
+        <script src="chooseProduct.js">
+        </script> 
     </main>
     <?php
     include('footer.php');

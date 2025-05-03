@@ -1,0 +1,49 @@
+#product-modal {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 20%;
+    width: 70%;
+    margin: 1.5%;
+    padding: 3%;
+    border-radius: 5%;
+    height: 800px;
+    background-color: rgb(255, 228, 196,0.95);
+}
+#modal-product-name{
+    color: rgb(153, 77, 22);
+    font: 700 28px sans-serif;
+    padding: 10px;
+}
+#modal-product-image {
+    padding: 15px;
+}
+#modal-product-image img {
+    height:400px
+}
+.modal-content {
+    display: flex;
+    flex-direction: row;
+}
+#modal-product-cost {
+    padding: 15px;
+    color: rgb(153, 77, 22);
+    font: 500 20px sans-serif;
+}
+#add-to-cart {
+    height: 30px;
+}
+.close {
+    position: relative;
+    left: 200px;
+    padding: 15px;
+    height: 30px;
+    font: 700 28px sans-serif;
+}
+.close:hover {
+    padding: 15px;
+    height: 30px;
+    font: 700 28px sans-serif;
+    background-color: chocolate;
+}

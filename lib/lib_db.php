@@ -23,15 +23,29 @@ function getQueryProducts($name)  {
         return $data=$query->fetchAll();
 }     
 function getQueryPics($image_id){
-
         include('db.php');
         $query = $dbh->prepare('SELECT * FROM images
                                         WHERE `image_id` = :image_id');
         $query->bindParam(':image_id',$image_id);
         $query->execute();
         return $data=$query->fetchAll();
+} 
+function getQueryColor($color_id){
+        include('db.php');
+        $query = $dbh->prepare('SELECT * FROM colors
+                                        WHERE `color_id` = :color_id');
+        $query->bindParam(':color_id',$color_id);
+        $query->execute();
+        return $data=$query->fetchAll();
 }    
-
+function getQueryCategory($category_id){
+        include('db.php');
+        $query = $dbh->prepare('SELECT * FROM categories
+                                        WHERE `category_id` = :category_id');
+        $query->bindParam(':category_id',$category_id);
+        $query->execute();
+        return $data=$query->fetchAll();
+}
 
 function getCostRangeProducts($max_price)  {  
         include('db.php');

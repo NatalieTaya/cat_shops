@@ -20,7 +20,6 @@ $colorsCheckedArray = explode(',', $checked_colors);;
 $categoriesArray = explode(',', $id_categories);
 $categoriesCheckedArray = explode(',', $checked_categories);;
 
-//print_r($colorsArray);
 $colores_checked=[];
 for($i=0; $i<sizeof($colorsArray); $i++){
     if($colorsCheckedArray[$i]==1){
@@ -33,16 +32,18 @@ for($i=0; $i<sizeof($categoriesArray); $i++){
         array_push($categories_checked, $categoriesArray[$i]);
     }
 }
-//формируем HTML ответ
+
+//формировка HTML ответа
 $html = '';
 foreach($products as $product) {
     if($product['cost']  <=  $sliderValue 
-        and in_array($product['color'], $colores_checked)
+        and in_array($product['color_id'], $colores_checked)
         and in_array($product['category_id'], $categories_checked) )   
     {
         $image = getQueryPics($product['picture']);
+
         $html .= '<div class="product">
-                    <h2 class="product_name">'. htmlspecialchars(($product['name'])) .'</h2>
+                    <h2 class="product_name" >'. htmlspecialchars(($product['name'])) .'</h2>
                     <div class="product_image"> <img src="'. htmlspecialchars($image[0]['image']  ). '" alt=""></div>
                     <div class="product_cost">'. htmlspecialchars(($product['cost'])) .'$ </div>
                  </div>';

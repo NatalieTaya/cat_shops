@@ -1,5 +1,6 @@
 *{
     margin: 0;
+    text-decoration: none;
 }
 main {
     margin: 30px;
@@ -20,7 +21,7 @@ main {
     margin: 25px;
     border: bisque 1px solid;
 }
-.product_name {
+.product_name  {
     text-align: center;
     padding: 5px;
     color: peru;
@@ -51,4 +52,10 @@ aside {
 }
 aside  h2{
     padding: 10px;
+}
+.label_search{
+    display: inline-block;
+    margin: 10px;
+    padding: 5px;
+    height: 20px;
 }

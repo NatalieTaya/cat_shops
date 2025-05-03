@@ -11,7 +11,14 @@ form.addEventListener('input', function() {
     timeout = setTimeout(() => {
         const value =slider.value
         label.textContent=value+"$"
-    
+
+        // Настройки пагинации
+        const itemsPerPage = 4; // Товаров на странице
+        let currentPage = 1;    // Текущая страница
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+
         // Создаем FormData для  отправки
         const formData = new FormData();
         formData.append('slider_value', value);
@@ -32,7 +39,7 @@ form.addEventListener('input', function() {
         const id_categories = [];;
         const checked_categories= [];
         checkboxesCategories.forEach(checkbox => {
-            id_categories.push(checkbox.getAttribute('color_id'));
+            id_categories.push(checkbox.getAttribute('categorie_id'));
             checked_categories.push(checkbox.checked ? '1' : '0');
         });
         formData.append('id_categories', id_categories);
@@ -43,11 +50,12 @@ form.addEventListener('input', function() {
         xhr.open('POST', 'process.php', true); // 'POST' - метод HTTP-запроса
                                                // 'process.php' - URL серверного скрипта, который будет обрабатывать запрос
                                                // true - запрос асинхронный (не блокирует выполнение скрипта)
-        xhr.onreadystatechange = function() {
+        xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 qproducts.innerHTML = xhr.responseText;
             }
         };
+        
         xhr.send(formData); 
     }, 500); // Задержка 300 мс
 });
