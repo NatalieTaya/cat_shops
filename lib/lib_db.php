@@ -5,6 +5,7 @@ function getAllproducts(){
         $query = $dbh->query('SELECT * FROM product');
         $query->execute();
         $data = $query->fetchAll();
+        $query = null; $dbh = null;
         return $data;
 }
 function getAllpics(){
@@ -12,6 +13,7 @@ function getAllpics(){
         $query = $dbh->query('SELECT * FROM images');
         $query->execute();
         $data = $query->fetchAll();
+        $query = null; $dbh = null;
         return $data;
 }   
 function getQueryProducts($name)  {  
@@ -20,7 +22,9 @@ function getQueryProducts($name)  {
                                         WHERE name REGEXP :name');
         $query->bindParam(':name',$name);
         $query->execute();
-        return $data=$query->fetchAll();
+        $data=$query->fetchAll();
+        $query = null; $dbh = null;
+        return $data;
 }     
 function getQueryPics($image_id){
         include('db.php');
@@ -28,7 +32,9 @@ function getQueryPics($image_id){
                                         WHERE `image_id` = :image_id');
         $query->bindParam(':image_id',$image_id);
         $query->execute();
-        return $data=$query->fetchAll();
+        $data = $query->fetchAll();
+        $query = null; $dbh = null;
+        return $data;
 } 
 function getQueryColor($color_id){
         include('db.php');
@@ -36,7 +42,9 @@ function getQueryColor($color_id){
                                         WHERE `color_id` = :color_id');
         $query->bindParam(':color_id',$color_id);
         $query->execute();
-        return $data=$query->fetchAll();
+        $data = $query->fetchAll();
+        $query = null; $dbh = null;
+        return $data;
 }    
 function getQueryCategory($category_id){
         include('db.php');
@@ -44,7 +52,9 @@ function getQueryCategory($category_id){
                                         WHERE `category_id` = :category_id');
         $query->bindParam(':category_id',$category_id);
         $query->execute();
-        return $data=$query->fetchAll();
+        $data = $query->fetchAll();
+        $query = null; $dbh = null;
+        return $data;
 }
 
 function getCostRangeProducts($max_price)  {  
@@ -53,6 +63,8 @@ function getCostRangeProducts($max_price)  {
                                         WHERE cost <= :max_price');
         $query->bindParam(':max_price',$max_price);
         $query->execute();
-        return $data=$query->fetchAll();
+        $data = $query->fetchAll();
+        $query = null; $dbh = null;
+        return $data;
 }     
   

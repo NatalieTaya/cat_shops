@@ -19,7 +19,7 @@
         include('lib/lib_db.php');
         include('lib/lib_outputHTML.php');
         $max_cost=0;
-        //вывод товаров с частью строки из инпута или всех товаров
+        //поиск товаров с частью строки из инпута или поиск всех товаров
         if (isset($_POST['name'])) { 
             $products_query = getQueryProducts($_POST['name']);
             for($i=0; $i<sizeof($products_query); $i++){
@@ -41,13 +41,19 @@
         }    ?>
         
         
+        <div id="products_show">
+            <div id="qproducts">
+                <?php
+                // здесь динамически создается вывод товаров 
+                ?>
+            </div>
+            <div id="pagination">
+                <?php
+                // пагинация
+                ?>
+            </div>  
+        </div>
 
-        <div id="qproducts">
-            <?php
-            // вывод товаров 
-                productsHTML($products_query,$images);
-            ?>
-        </div> 
         <?php
                 //Модальное окошко для вывода информации о товаре
                 printf('<div id="product-modal" class="modal">
@@ -70,10 +76,10 @@
                 <h2>Расширенный поиск </h2>
                 <form id="form_extended_search" method="POST">
                     <label class="label_search">Цена</label>
-                    <input name="cost_range" id ="cost" type="range" min="0" max="%s" step="1"> <br>
+                    <input name="cost_range" id ="cost" type="range" min="0" max="%s" step="1" value="%s"> <br>
                                         <div id="label_cost" >до %s$</div><br>
 
-                    <label class="label_search">Цвет</label><br>', $max_cost, $costRange);
+                    <label class="label_search">Цвет</label><br>', $max_cost,$max_cost, $costRange);
 
         // поиск по цвету товара
         $colors_id=array(); 

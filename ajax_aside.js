@@ -5,19 +5,24 @@ const form = document.getElementById("form_extended_search")
 const checkboxesColors = document.querySelectorAll('input[type="checkbox"][name="colors"]');
 const checkboxesCategories = document.querySelectorAll('input[type="checkbox"][name="categories"]');
 
+// Настройки пагинации
+const itemsPerPage = 8; // Товаров на странице
+let totalAmountofPages;
+let currentPage = 1;    // Текущая страница
+let startIndex = (currentPage - 1) * itemsPerPage;
+let endIndex = startIndex + itemsPerPage;
+
+// задержка выполнения
 let timeout;
-form.addEventListener('input', function() {
+//загрузка товаров при обновлении страницы
+window.onload = function() {
+    loadData(currentPage)
+}
+function loadData(page){
     clearTimeout(timeout);
     timeout = setTimeout(() => {
         const value =slider.value
         label.textContent=value+"$"
-
-        // Настройки пагинации
-        const itemsPerPage = 4; // Товаров на странице
-        let currentPage = 1;    // Текущая страница
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-
 
         // Создаем FormData для  отправки
         const formData = new FormData();
@@ -52,11 +57,57 @@ form.addEventListener('input', function() {
                                                // true - запрос асинхронный (не блокирует выполнение скрипта)
         xhr.onload = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                qproducts.innerHTML = xhr.responseText;
+                displayProducts(xhr.responseText);
+                renderPagination(page);
             }
         };
         
         xhr.send(formData); 
     }, 500); // Задержка 300 мс
+}
+// загрузка товаров при взаимодействии с панелью Расширенный поиск
+form.addEventListener('input', function() {
+    loadData(currentPage)
 });
 
+
+
+// Отображение товаров в соответствии с пагинацией
+function displayProducts(responseText) {
+    qproducts.innerHTML = '';
+    const response = JSON.parse(responseText);
+    // подсчитываем, сколько страниц пагинаци нужно на найденное количество товаров
+    totalAmountofPages=Math.ceil(response.length / itemsPerPage);
+    // показать только  itemsPerPage товаров
+    productsToShow = response.slice(startIndex, endIndex);
+
+    productsToShow.forEach(product => {
+        qproducts.innerHTML += `
+            <div class="product">
+                <h2 class="product_name">${product.name}</h2>
+                <div class="product_image"><img src="${product.picture}" alt=""></div>
+                <div class="product_cost">${product.cost}$</div> 
+            </div>
+        `;
+    });
+}
+// Отображение пагинации
+function renderPagination(page) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+    // рисуем кнопки номеров страниц пагинации
+    for(i=1;i<totalAmountofPages+1;i++) {
+    pagination.innerHTML += `
+                <button class="pagination_btn" onclick="changeCurrentPage(${i})">
+                ${i}
+                </button>
+                `
+    }
+}
+// Отображение пагинации
+function changeCurrentPage(page) {
+    currentPage = page
+    startIndex = (currentPage - 1) * itemsPerPage;
+    endIndex = startIndex + itemsPerPage;
+    loadData(currentPage)
+}

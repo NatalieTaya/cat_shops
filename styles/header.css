@@ -17,13 +17,20 @@
 
 .form input {
     width: 95%;
-    height: 50px;
+    height: 30px;
     border: none;
+    outline: none;
     background-color: bisque;
+    padding: 15px;
+    font: 700 20px sans-serif;
+    color: chocolate;
 }
 .form button {
     width: 5%;
     background-color: bisque;
     border-color: burlywood;
-
+    cursor: pointer;
+}
+button img {
+    height: 30px;
 }

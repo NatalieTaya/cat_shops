@@ -8,18 +8,33 @@ main {
     flex-direction: row-reverse;
     flex-wrap: wrap;
 }
-#qproducts {
+#products_show {
     width: 79%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+#qproducts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-
 }
+#pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 99%;
+    height: 30px;
+}
+
 .product {
-    width: 25%-25px ;
+    width: 25%-35px ;
     margin: 25px;
     border: bisque 1px solid;
+    cursor: pointer;
+
 }
 .product_name  {
     text-align: center;
@@ -58,4 +73,11 @@ aside  h2{
     margin: 10px;
     padding: 5px;
     height: 20px;
+}
+.pagination_btn{
+    font: 500 20px sans-serif;
+    margin: 0 3px;
+    background-color: burlywood;
+    border: none;
+    cursor: pointer;
 }
